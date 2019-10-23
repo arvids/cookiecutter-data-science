@@ -15,7 +15,7 @@ ENV PYTHONUNBUFFERED=1
 
 # Ensures that the python and pip executables used
 # in the image will be those from our virtualenv.
-ENV PATH="/venv/bin:$PATH"
+ENV PATH="./venv/bin:$PATH"
 
 # Install OS package dependencies.
 # Do all of this in one RUN to limit final image size.
@@ -24,36 +24,24 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Setup the virtualenv
-RUN python -m venv /venv
+RUN python -m venv ./venv
 
 # Install Python deps
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-
-########
-# slim app container
-#
-FROM python:3-slim-stretch AS app
-
 # Extra python env
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ENV PATH="/venv/bin:$PATH"
 ENV PORT=8000
 
 # add non-priviledged user
-RUN adduser --uid 1000 --disabled-password --gecos '' --no-create-home webdev
+# RUN adduser --uid 1000 --disabled-password --gecos '' --no-create-home webdev
+COPY . .
+# RUN chown webdev.webdev -R .
+# USER webdev
+# CMD ["python3"]
+EXPOSE $PORT
+CMD ["python3", "server.py", "serve"]
 
-WORKDIR /app
-EXPOSE 8000
-
-# copy in Python environment
-COPY --from=builder /venv /venv
-
-COPY . . 
-
-RUN chown webdev.webdev -R .
-USER webdev
-#CMD ["python", "module.py"]
