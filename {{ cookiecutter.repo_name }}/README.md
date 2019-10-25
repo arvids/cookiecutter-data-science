@@ -3,6 +3,24 @@
 
 {{cookiecutter.description}}
 
+Installation
+-----------
+
+Install this as a python package : 
+```
+pip install .
+# Or in editable mode if you use notebooks and %autoreload_ext
+pip install -e . 
+```
+
+Get Data
+=======
+
+If you use [dvc](dvc.org) to manage large files use : 
+```
+dvc pull 
+```
+
 Project Organization
 ------------
 
@@ -48,10 +66,6 @@ Project Organization
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
     │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
-
-
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
