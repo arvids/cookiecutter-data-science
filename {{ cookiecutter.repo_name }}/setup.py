@@ -1,7 +1,5 @@
-import ast
 from codecs import open
 import os
-import re
 from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.dirname(__file__))
