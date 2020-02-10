@@ -1,5 +1,7 @@
+import ast
 from codecs import open
 import os
+import re
 from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -14,7 +16,7 @@ def readme():
         return f.read()
 
 
-install_requires = ["dvc[all]", "fire", "python-dotenv>=0.5.1"]
+install_requires = ["click", "Sphinx", "coverage", "awscli", "flake8", "fire", "python-dotenv>=0.5.1"]
 extra_requires = {
     "dev": ["black", "coverage", "flake8", "ipykernel", "ipython", "pytest>=5.0.0"],
     "docs": ["mock", "sphinx", "sphinx_rtd_theme", "recommonmark"],
