@@ -17,11 +17,11 @@ def readme():
 
 
 install_requires = ["click", "Sphinx", "coverage", "awscli", "flake8", "fire", "python-dotenv>=0.5.1"]
-extra_requires = {
+extras_require = {
     "dev": ["black", "coverage", "flake8", "ipykernel", "ipython", "pytest>=5.0.0"],
     "docs": ["mock", "sphinx", "sphinx_rtd_theme", "recommonmark"],
 }
-extra_requires["all"] = list(set((item for value in extra_requires.values() for item in value)))
+extras_require["all"] = list(set((item for value in extras_require.values() for item in value)))
 
 setup(
     name=about["__title__"],
@@ -35,7 +35,7 @@ setup(
     long_description_content_type="text/markdown",
     packages=find_packages(),
     install_requires=install_requires,
-    extra_requires=extra_requires,
+    extras_require=extras_require,
     include_package_data=False,  # True to include files listed in ./MANIFEST.in,
     entry_points="""
         [console_scripts]
