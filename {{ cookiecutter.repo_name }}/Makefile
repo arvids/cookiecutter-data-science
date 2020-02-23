@@ -7,7 +7,7 @@
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUCKET = {{ cookiecutter.s3_bucket }}
 PROFILE = {{ cookiecutter.aws_profile }}
-PROJECT_NAME = {{ cookiecutter.repo_name }}
+PROJECT_NAME = {{ cookiecutter.package_name }}
 PYTHON_INTERPRETER = python3
 
 ifeq (,$(shell which conda))

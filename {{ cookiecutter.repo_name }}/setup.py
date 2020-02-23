@@ -5,7 +5,7 @@ import re
 from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.dirname(__file__))
-PACKAGE_NAME = "{{ cookiecutter.repo_name }}"
+PACKAGE_NAME = "{{ cookiecutter.package_name }}"
 about = {}
 with open(os.path.join(HERE, PACKAGE_NAME, "__about__.py"), "r", "utf-8") as f:
     exec(f.read(), about)
@@ -39,6 +39,6 @@ setup(
     include_package_data=False,  # True to include files listed in ./MANIFEST.in,
     entry_points="""
         [console_scripts]
-        {{ cookiecutter.repo_name }}={{ cookiecutter.repo_name }}.command_line:main
+        {{ cookiecutter.package_name }}={{ cookiecutter.package_name }}.command_line:main
     """,
 )
