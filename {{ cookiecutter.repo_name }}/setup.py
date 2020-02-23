@@ -16,12 +16,23 @@ def readme():
         return f.read()
 
 
-install_requires = ["click", "Sphinx", "coverage", "awscli", "flake8", "fire", "python-dotenv>=0.5.1"]
+install_requires = [
+    "click",
+    "Sphinx",
+    "coverage",
+    "awscli",
+    "flake8",
+    "fire",
+    "python-dotenv>=0.5.1",
+]
 extra_requires = {
     "dev": ["black", "coverage", "flake8", "ipykernel", "ipython", "pytest>=5.0.0"],
+    "test": ["pytest", "pytest-cov"],
     "docs": ["mock", "sphinx", "sphinx_rtd_theme", "recommonmark"],
 }
-extra_requires["all"] = list(set((item for value in extra_requires.values() for item in value)))
+extra_requires["all"] = list(
+    set((item for value in extra_requires.values() for item in value))
+)
 
 setup(
     name=about["__title__"],

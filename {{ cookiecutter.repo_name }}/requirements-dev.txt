@@ -1,8 +1,10 @@
 black
+bump2version
 coverage
 flake8
 ipykernel
 ipython
+pre-commit
 pytest>=5.0.0
 
 # For Doc
