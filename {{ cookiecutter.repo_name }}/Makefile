@@ -1,4 +1,4 @@
-.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3
+.PHONY: help clean data lint requirements sync_data_to_s3 sync_data_from_s3
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -20,6 +20,44 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
+##  Install the package in editable mode with the \`dev\` and \`test\` extras and run \`pre-commit install`"
+install:
+	pip install -e ".[dev,test]"
+	pre-commit install
+
+## Run tests with \`pytest\`
+
+##  Increment the version number to the next patch version following semanting versioning) using \`bumpversion\`"
+release-patch:
+	@# Remove the trailing -dev0 from version number and tag the new version
+	bumpversion release --tag
+	@echo "${BOLD}Tagged version: $$(bumpversion --dry-run --list patch | grep current_version | cut -d= -f2)${NORMAL}"
+	@make dev
+
+##  Increment the version number to the next minor version following semanting versioning) using \`bumpversion\`"
+release-minor:
+	@# Increment to the new minor
+	bumpversion minor --no-commit
+	@# Remove the trailing -dev0 from version number
+	bumpversion release --allow-dirty --tag
+	@echo "${BOLD}Tagged version: $$(bumpversion --dry-run --list patch | grep current_version | cut -d= -f2)${NORMAL}"
+	@make dev
+
+##  Increment the version number to the next major version following semanting versioning) using \`bumpversion\`"
+release-major:
+	@# Increment to the new major
+	bumpversion major --no-commit
+	@# Remove the trailing -dev0 from version number
+	bumpversion release --allow-dirty --tag
+	@echo "${BOLD}Tagged version: $$(bumpversion --dry-run --list patch | grep current_version | cut -d= -f2)${NORMAL}"
+	@make dev
+
+## Increment to the new patch (automatically adds -dev0 to it)
+dev:
+	@# Increment to the new patch (automatically adds -dev0 to it)
+	bumpversion patch --message "Post-release: {new_version}"
+	@echo "${BOLD}Current version: $$(bumpversion --dry-run --list patch | grep current_version | cut -d= -f2)${NORMAL}"
+
 ## Install Python Dependencies
 requirements: test_environment
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
@@ -33,6 +71,10 @@ data: requirements
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
+	rm -rf docs/_build/
+	rm -rf pip-wheel-metadata/
+	rm -rf *.egg-info/
+
 
 ## Lint using flake8
 lint:
