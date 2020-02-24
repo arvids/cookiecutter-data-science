@@ -49,6 +49,7 @@ def parse_requirements():
 install_requires, private_packages = parse_requirements()
 extras_require = {
     "dev": ["black", "coverage", "flake8", "ipykernel", "ipython", "pytest>=5.0.0"],
+    "test": ["pytest", "pytest-cov"],
     "docs": ["mock", "sphinx", "sphinx_rtd_theme", "recommonmark"],
 }
 extras_require["all"] = list(set((item for value in extras_require.values() for item in value)))
