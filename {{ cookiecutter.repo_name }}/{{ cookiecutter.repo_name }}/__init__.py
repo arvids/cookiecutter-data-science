@@ -7,8 +7,6 @@ from {{ cookiecutter.repo_name }}.__about__ import __author__, __author_email__,
 
 PROJECT_HOME = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-__all__ = ["ModuleObject"]
-
 
 def init_logger(level="WARN"):
     """
